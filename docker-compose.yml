@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  ollama-webui:
+    image: ollama-webui
+    container_name: ollama-webui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1338:1338"
