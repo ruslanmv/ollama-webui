@@ -13,6 +13,7 @@ app_port: 1338
 The purpose of this LLM repository is have an LLM locally. If you dont have
 internet and you need al llm this is a solution. 
 ![](assets/2024-05-20-08-25-27.png)
+
 ## Table of Contents  
 - [To-Do List](#to-do-list-%EF%B8%8F)  
 - [Getting Started](#getting-started-white_check_mark)  
