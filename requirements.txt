@@ -21,4 +21,9 @@ retrying
 numpy>=1.22.2 # pinned to avoid a vulnerability
 tornado>=6.3.2 # pinned to avoid a vulnerability
 PyExecJS
-openai
+openai==0.28.1
+ipykernel
+notebook
+jupyter
+g4f
+langchain-community
