@@ -1,18 +1,16 @@
 FROM python:3.10-slim-buster
-RUN curl https://ollama.ai/install.sh | sh
-# Create the directory and give appropriate permissions
-RUN mkdir -p /.ollama && chmod 777 /.ollama
-# Command to run the application
-CMD ollama serve 
-# Expose the server port
-EXPOSE 7860
+# Set up the working directory
+WORKDIR /
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# Copy a custom entrypoint script into the container
+COPY ollama_start.sh /
+RUN chmod +x /ollama_start.sh
+CMD ["ollama_start.sh"]
 
 # Set the working directory
 WORKDIR /app
-
 # Copy requirements file
 COPY requirements.txt requirements.txt
-
 # Create a virtual environment
 RUN python -m venv venv
 
@@ -48,12 +46,10 @@ COPY . .
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
 
-RUN /usr/local/bin/ollama pull llama3
 
 # Copy the init script
 COPY init.sh /app/init.sh
 RUN chmod +x /app/init.sh
-
 
 # Define the command to run the init script
 CMD ["/bin/bash", "/app/init.sh"]
