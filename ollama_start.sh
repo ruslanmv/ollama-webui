@@ -7,4 +7,7 @@
 (curl -fsSL https://ollama.com/install.sh | sh && ollama serve > ollama.log 2>&1) &
 
 # Keep the container running by running a dummy command
-ollama serve
+# Start ollama
+ollama serve &
+sleep 2
+ollama pull llama3
