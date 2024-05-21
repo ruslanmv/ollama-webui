@@ -27,17 +27,21 @@ RUN apt-get update && apt-get install -y \
 RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install additional software
+# Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Expose the port the application uses (replace 11434 with the actual port)
 EXPOSE 11434
 
+# Copy the entire application
 COPY . .
 
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
 
+# Copy the init script
+COPY init.sh /app/init.sh
+RUN chmod +x /app/init.sh
 
-# Define the command to run the application
-CMD ["python", "./run.py"]
+# Define the command to run the init script
+CMD ["/bin/bash", "/app/init.sh"]
