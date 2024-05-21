@@ -1,7 +1,9 @@
 #!/bin/bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
 
 # Start Ollama in the background.
-/bin/ollama serve &
+ollama serve &
 # Record Process ID.
 pid=$!
 
@@ -9,7 +11,7 @@ pid=$!
 sleep 5
 
 echo "🔴 Retrieve LLAMA3 model..."
-/bin/ollama pull llama3
+ollama pull llama3
 echo "🟢 Done!"
 # Wait for Ollama process to finish.
 wait $pid

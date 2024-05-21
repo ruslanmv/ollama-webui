@@ -27,8 +27,6 @@ RUN apt-get update && apt-get install -y \
 RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Expose the port the application uses (replace 11434 with the actual port)
 EXPOSE 11434
