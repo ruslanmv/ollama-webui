@@ -10,7 +10,43 @@ import ollama
 
 # Optionally specify the model to pull during startup:
 model_name = "llama3"  # Replace with the desired model name
+import os
+import subprocess
+# List of allowed models
+ALLOWED_MODELS = [
+    'llama3',
+    'llama3:70b',
+    'phi3',
+    'mistral',
+    'neural-chat',
+    'starling-lm',
+    'codellama',
+    'llama2-uncensored',
+    'llava',
+    'gemma:2b',
+    'gemma:7b',
+    'solar',
+]
 
+# Directory where models are stored (current directory)
+MODEL_DIR = os.getcwd()
+
+def is_model_downloaded(model_name):
+    """Check if the model is already downloaded."""
+    model_path = os.path.join(MODEL_DIR, model_name.replace(':', '_'))
+    return os.path.exists(model_path)
+
+def download_model(model_name):
+    """Download the model using the ollama command."""
+    if model_name in ALLOWED_MODELS:
+        if not is_model_downloaded(model_name):
+            print(f"Downloading model: {model_name}")
+            subprocess.run(['ollama', 'pull', model_name], check=True)
+            print(f"Model {model_name} downloaded successfully.")
+        else:
+            print(f"Model {model_name} is already downloaded.")
+    else:
+        print(f"Model {model_name} is not in the list of allowed models.")
 
 if __name__ == '__main__':
     import os
