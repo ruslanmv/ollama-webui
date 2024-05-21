@@ -11,20 +11,9 @@ RUN apt-get update && \
     curl -fsSL https://ollama.com/install.sh | sh
 
 COPY . .
-
 RUN chmod -R 777 translations
-
 CMD ["python3", "./run.py"]
 
-
-
-
-
-
-
-COPY . .  
-RUN chmod -R 777 translations  
-CMD ["python3", "./run.py"]  
 
 
 
