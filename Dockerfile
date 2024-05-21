@@ -29,7 +29,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Download the required model
-RUN ollama download llama3
+RUN ollama pull llama3
 
 # Copy the entire application
 COPY . .
