@@ -37,30 +37,6 @@ COPY . .
 
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
-
-# Create the Ollama user
-RUN useradd -r -s /bin/false -m -d /usr/share/ollama ollama
-
-# Create the service file
-RUN echo "[Unit]\n\
-Description=Ollama Service\n\
-After=network-online.target\n\n\
-[Service]\n\
-ExecStart=/usr/bin/ollama serve\n\
-User=ollama\n\
-Group=ollama\n\
-Restart=always\n\
-RestartSec=3\n\n\
-[Install]\n\
-WantedBy=default.target" > /etc/systemd/system/ollama.service
-
-# Enable the service
-RUN systemctl enable ollama
-
-
-
-# Define the entrypoint to use tini and the custom script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 # Download the required model
 RUN ollama pull llama3
 # Define the command to run the application
