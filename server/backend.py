@@ -50,8 +50,8 @@ class Backend_Api:
             model = request.json['model']
             
             messages = build_messages(jailbreak)
-            local_mode_1=True
-            local_model_2 =False
+            local_mode_1=False
+            local_model_2 =True
             print(model)
             if local_mode_1:
                 content=messages[0]['content']
