@@ -30,18 +30,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install additional software
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-
-
 # Copy the entire application
 COPY . .
 
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
 
-# Start Ollama service 
-RUN systemctl start ollama  
 
-# Download the required model
-RUN ollama pull llama3
 # Define the command to run the application
 CMD ["python", "./run.py"]

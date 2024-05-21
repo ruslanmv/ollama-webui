@@ -7,6 +7,47 @@ from server.config import special_instructions
 from langchain_community.llms import Ollama
 import requests
 
+
+
+
+import os
+import subprocess
+
+# List of allowed models
+ALLOWED_MODELS = [
+    'llama3',
+    'llama3:70b',
+    'phi3',
+    'mistral',
+    'neural-chat',
+    'starling-lm',
+    'codellama',
+    'llama2-uncensored',
+    'llava',
+    'gemma:2b',
+    'gemma:7b',
+    'solar',
+]
+
+# Directory where models are stored (current directory)
+MODEL_DIR = os.getcwd()
+
+def is_model_downloaded(model_name):
+    """Check if the model is already downloaded."""
+    model_path = os.path.join(MODEL_DIR, model_name.replace(':', '_'))
+    return os.path.exists(model_path)
+
+def download_model(model_name):
+    """Download the model using the ollama command."""
+    if model_name in ALLOWED_MODELS:
+        if not is_model_downloaded(model_name):
+            print(f"Downloading model: {model_name}")
+            subprocess.run(['ollama', 'pull', model_name], check=True)
+            print(f"Model {model_name} downloaded successfully.")
+        else:
+            print(f"Model {model_name} is already downloaded.")
+    else:
+        print(f"Model {model_name} is not in the list of allowed models.")
 chatbot_name="Lilly"
 prompt: str = """You are a {chatbot_name}, friendly AI companion. You should answer what the user request.
 user: {input}
@@ -48,6 +89,7 @@ class Backend_Api:
             api_key = request.json['api_key']
             jailbreak = request.json['jailbreak']
             model = request.json['model']
+            download_model(model)
             messages = build_messages(jailbreak)
             local_mode_1=True
             local_model_2 =False
