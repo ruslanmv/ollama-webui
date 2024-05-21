@@ -1,22 +1,21 @@
 #!/bin/bash
 # Starting server
-echo "Starting server"
-#ollama serve &
-#sleep 1
-#ollama pull llama3
-#python run.py
-# Start Ollama in the background.
+echo "Starting Ollama server..."
 ollama serve &
-# Record Process ID.
-pid=$!
-# Pause for Ollama to start.
-sleep 5
-echo "🔴 Retrieve LLAMA3 model..."
-ollama pull llama3
-echo "🟢 Done!"
-# Wait for Ollama process to finish.
-wait $pid
-# Start the Python application
-echo "Starting Python application..."
-python ./run.py
 
+# Wait for the Ollama server to be ready
+echo "Waiting for Ollama server to be ready..."
+until curl -sSf http://localhost:11434/api/status > /dev/null; do
+    echo "Waiting for Ollama server to start..."
+    sleep 2
+done
+
+echo "Ollama server is ready."
+
+# Pull the required model
+echo "Pulling llama3 model..."
+ollama pull llama3
+
+# Start the web UI
+echo "Starting web UI..."
+python run.py
