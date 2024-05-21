@@ -38,9 +38,6 @@ EXPOSE 7860
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Set the entry point script as the default command
-CMD ["/entrypoint.sh"]
-
 # Set the model as an environment variable (this can be overridden)
 ENV model="default_model"
 
@@ -51,8 +48,9 @@ COPY . .
 RUN chmod -R 777 translations
 
 # Copy the startup script and make it executable
-COPY start.sh .
-RUN chmod +x start.sh
+#COPY start.sh .
+#RUN chmod +x start.sh
 
 # Define the command to run the application
-CMD ["./start.sh"]
+# Set the entry point script as the default command
+ENTRYPOINT ["/entrypoint.sh"]
