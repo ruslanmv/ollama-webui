@@ -1,37 +1,23 @@
-FROM python:3.10-slim-buster
-FROM python:3.10-slim-buster
+#################### Layer 1
+# Using the ollama docker image as a base, so we get nvidia support for free,
+# install python3 with venv and pip.
+#
+FROM	ollama/ollama:latest as just-add-python
 
-# Install curl
-RUN apt-get update && apt-get install -y curl
-# Install ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
-# Set environment variable
-ENV OLLAMA_HOST=0.0.0.0
-# Create the directory and set permissions
-RUN mkdir -p /app/.ollama && chmod 777 /app/.ollama
-# Create a new user and group
-RUN groupadd -r app && useradd -r -g app app
-# Change ownership of the directory
-RUN chown -R app:app /app/.ollama
-# Switch to the new user
-USER app
-# Set working directory
-WORKDIR /app/.ollama
-# Copy models directory (uncomment if you have a models directory to copy)
-# COPY --chown=app:app models /app/.ollama
-# Ensure the models directory exists before changing permissions
-RUN mkdir -p /app/.ollama/models && chmod 777 /app/.ollama/models
-# Copy the entry point script
-COPY start.sh /app/start.sh
-# Make the entry point script executable
-RUN chmod +x /app/start.sh
-# Expose the server port
-EXPOSE 7860
-# Set the entry point script as the default command
-CMD ["/app/start.sh"]
-USER root 
+RUN		apt update && \
+		apt install -qy \
+			git curl wget \
+			python3 python-is-python3 python3-venv python3-pip \
+			&& \
+		# Shrink the layer's footprint \
+		apt autoclean && \
+		rm -rf /var/lib/apt/lists/*
 
-
+COPY ./script.sh /tmp/script.sh
+WORKDIR /tmp
+RUN chmod +x script.sh \
+    && ./script.sh
+EXPOSE 11434
 # Set the working directory
 WORKDIR /app
 # Copy requirements file
