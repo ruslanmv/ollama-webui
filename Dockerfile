@@ -1,14 +1,12 @@
 FROM python:3.10-slim-buster
-
 RUN apt-get update &&  apt-get install curl -y
 RUN curl -fsSL https://ollama.com/install.sh | sh
 ENV OLLAMA_HOST=0.0.0.0
-RUN useradd -m app && chown -R app:app /home/app
+RUN useradd -m app && chown -R app:app /app
 # Create the directory and give appropriate permissions
-RUN mkdir -p /home/app/.ollama && chmod 777 /home/app/.ollama
-#RUN mkdir -p /home/app/.ollama/models && 
+RUN mkdir -p /app/.ollama && chmod 777 /app/.ollama
 USER app
-WORKDIR /home/app/.ollama
+WORKDIR /app/.ollama
 #Copy dossier de models
 #COPY --chown=app models /.ollama
 #RUN chmod 777 /home/app/.ollama/models
