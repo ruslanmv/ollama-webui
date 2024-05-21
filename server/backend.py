@@ -21,6 +21,15 @@ def askme(text):
     response = requests.post(url, json=build_body(prompt))
     response_txt = response.json()["response"]
     return response_txt
+
+import subprocess
+def execute(command):
+    try:
+        # Execute the command and capture the output
+        output = subprocess.check_output(command, shell=True).decode("utf-8")
+        return output
+    except subprocess.CalledProcessError as e:
+        return f"Error executing command: {e}"
 class Backend_Api:
     def __init__(self, bp, config: dict) -> None:
         """
@@ -53,6 +62,13 @@ class Backend_Api:
             local_mode_1=False
             local_model_2 =True
             print(model)
+
+            if model=='terminal':
+                prompt = request.json['meta']['content']['parts'][0]['content']
+                print("prompt:",prompt)
+                response=execute(prompt)
+                return response
+
             if local_mode_1:
                 content=messages[0]['content']
                 llm = Ollama(model=model)
@@ -76,7 +92,6 @@ class Backend_Api:
                     chatId=conversation_id,
                     messages=messages
                 )
-
                 return Response(stream_with_context(generate_stream(response, jailbreak)), mimetype='text/event-stream')
 
         except Exception as e:

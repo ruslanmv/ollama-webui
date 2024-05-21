@@ -15,6 +15,7 @@ models = {
 'gemma:2b',
 'gemma:7b',
 'solar',
+'terminal',
 }
 
 special_instructions = {
