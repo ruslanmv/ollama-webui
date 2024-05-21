@@ -23,13 +23,16 @@ def askme(text):
     return response_txt
 
 import subprocess
+
 def execute(command):
     try:
         # Execute the command and capture the output
-        output = subprocess.check_output(command, shell=True).decode("utf-8")
+        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
         return output
     except subprocess.CalledProcessError as e:
-        return f"Error executing command: {e}"
+        return f"Error executing command (return code {e.returncode}):\n{e.output}"
+    except Exception as e:
+        return f"An unexpected error occurred: {str(e)}"
 class Backend_Api:
     def __init__(self, bp, config: dict) -> None:
         """
