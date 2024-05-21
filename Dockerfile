@@ -31,10 +31,6 @@ EXPOSE 11434
 COPY . .
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
-
-# Copy the entry point script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["ollama", "serve"]
+# Define the command to run the application
+CMD ["python", "./run.py"]
 
