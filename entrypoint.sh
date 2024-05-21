@@ -14,7 +14,6 @@ for m in "${MODELS[@]}"; do
     # echo "Running $m"
     # ollama run "$m"
     # No need to sleep here unless you want to give some delay between each pull for some reason
-    python run.py
 done
 
 # Keep the script running to prevent the container from exiting

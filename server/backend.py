@@ -62,8 +62,8 @@ class Backend_Api:
             model = request.json['model']
             
             messages = build_messages(jailbreak)
-            local_mode_1=False
-            local_model_2 =True
+            local_mode_1=True
+            local_model_2 =False
             print(model)
 
             if model=='terminal':
