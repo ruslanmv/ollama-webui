@@ -1,6 +1,6 @@
 FROM python:3.10-slim-buster
 
-RUN apt update &&  apt install curl -y
+RUN apt-get update &&  apt-get install curl -y
 RUN curl -fsSL https://ollama.com/install.sh | sh
 ENV OLLAMA_HOST=0.0.0.0
 RUN useradd -m app && chown -R app:app /home/app
