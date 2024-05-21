@@ -13,7 +13,7 @@ WORKDIR /home/app/.ollama
 #COPY --chown=app models /.ollama
 #RUN chmod 777 /home/app/.ollama/models
 # Copy the entry point script
-COPY --chown=app entrypoint.sh /entrypoint.sh
+COPY --chown=app start.sh /start.sh
 RUN chmod +x /start.sh
 # Set the entry point script as the default command
 CMD ["/start.sh"]
