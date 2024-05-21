@@ -30,8 +30,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install additional software
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-#RUN  ollama serve
-# Copy the entire application
+# Expose the port the application uses (replace 11434 with the actual port)
+EXPOSE 11434
+
 COPY . .
 
 # Set proper permissions for the translations directory
