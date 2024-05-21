@@ -16,7 +16,7 @@ if __name__ == '__main__':
     import os
     #os.system(" ollama serve")
     # Start Ollama in server mode:
-    ollama.serve(pull=model_name)
+    ollama.pull=model_name
     # Load configuration from config.json
     config = load(open('config.json', 'r'))
     site_config = config['site_config']
