@@ -1,23 +1,37 @@
-#################### Layer 1
-# Using the ollama docker image as a base, so we get nvidia support for free,
-# install python3 with venv and pip.
-#
-FROM	ollama/ollama:latest as just-add-python
+FROM python:3.10-slim-buster
+# Update packages and install curl and gnupg
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg
 
-RUN		apt update && \
-		apt install -qy \
-			git curl wget \
-			python3 python-is-python3 python3-venv python3-pip \
-			&& \
-		# Shrink the layer's footprint \
-		apt autoclean && \
-		rm -rf /var/lib/apt/lists/*
+# Add NVIDIA package repositories
+RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://nvidia.github.io/libnvidia-container/stable/deb/ $(. /etc/os-release; echo $UBUNTU_CODENAME) main" > /etc/apt/sources.list.d/nvidia-container-toolkit.list
 
-COPY ./script.sh /tmp/script.sh
-WORKDIR /tmp
-RUN chmod +x script.sh \
-    && ./script.sh
-EXPOSE 11434
+# Install NVIDIA container toolkit (Check for any updated methods or URLs for Ubuntu jammy)
+RUN apt-get update && apt-get install -y nvidia-container-toolkit || true
+
+# Install application
+RUN curl https://ollama.ai/install.sh | sh
+# Below is to fix embedding bug as per
+# RUN curl -fsSL https://ollama.com/install.sh | sed 's#https://ollama.com/download#https://github.com/jmorganca/ollama/releases/download/v0.1.29#' | sh
+
+
+# Create the directory and give appropriate permissions
+RUN mkdir -p /.ollama && chmod 777 /.ollama
+
+WORKDIR /.ollama
+
+# Copy the entry point script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Set the model as an environment variable (this can be overridden)
+ENV model=${model}
+
+# Expose the server port
+EXPOSE 7860
+
 # Set the working directory
 WORKDIR /app
 # Copy requirements file
@@ -62,5 +76,7 @@ RUN chmod -R 777 translations
 COPY init.sh /app/init.sh
 RUN chmod +x /app/init.sh
 
-# Define the command to run the init script
-CMD ["/bin/bash", "/app/init.sh"]
+# Set the entry point script as the default command
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["ollama", "serve"]
+
