@@ -1,15 +1,38 @@
-FROM python:3.10-slim-buster  
-WORKDIR /app  
-COPY requirements.txt requirements.txt  
-RUN python -m venv venv  
-ENV PATH="/app/venv/bin:$PATH"  
-RUN apt-get update 
-RUN apt-get install -y curl
-RUN apt-get install -y --no-install-recommends build-essential libffi-dev cmake libcurl4-openssl-dev && 
-RUN apt-get clean 
-RUN python3 -m pip install --upgrade pip 
-RUN pip3 install --no-cache-dir -r requirements.txt 
+FROM python:3.10-slim-buster
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt requirements.txt
+
+# Create a virtual environment
+RUN python -m venv venv
+
+# Set the PATH to use the virtual environment
+ENV PATH="/app/venv/bin:$PATH"
+
+# Update package list and install necessary packages in a single step
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    libffi-dev \
+    cmake \
+    libcurl4-openssl-dev && \
+    apt-get clean
+
+# Upgrade pip and install dependencies
+RUN python -m pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional software
 RUN curl -fsSL https://ollama.com/install.sh | sh
+
+# Copy the entire application
 COPY . .
+
+# Set proper permissions for the translations directory
 RUN chmod -R 777 translations
-CMD ["python3", "./run.py"]
+
+# Define the command to run the application
+CMD ["python", "./run.py"]
