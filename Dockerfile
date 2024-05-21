@@ -30,6 +30,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
+
 RUN which ollama
 # Expose the port the application uses (replace 11434 with the actual port)
 EXPOSE 11434
@@ -43,6 +44,7 @@ RUN chmod -R 777 translations
 # Copy the init script
 COPY init.sh /app/init.sh
 RUN chmod +x /app/init.sh
+RUN mkdir /app/.ollama
 
 # Define the command to run the init script
 CMD ["/bin/bash", "/app/init.sh"]
