@@ -41,10 +41,13 @@ COPY . .
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
 
+RUN /usr/local/bin/ollama serve
+RUN /usr/local/bin/ollama pull llama3
+
 # Copy the init script
 COPY init.sh /app/init.sh
 RUN chmod +x /app/init.sh
-RUN mkdir /app/.ollama
+
 
 # Define the command to run the init script
 CMD ["/bin/bash", "/app/init.sh"]
