@@ -1,11 +1,26 @@
 FROM python:3.10-slim-buster
-# Set up the working directory
-WORKDIR /
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-# Copy a custom entrypoint script into the container
-COPY ollama_start.sh /
-RUN chmod +x /ollama_start.sh
-CMD ["ollama_start.sh"]
+
+RUN apt update &&  apt install curl -y
+RUN curl -fsSL https://ollama.com/install.sh | sh
+ENV OLLAMA_HOST=0.0.0.0
+RUN useradd -m app && chown -R app:app /home/app
+# Create the directory and give appropriate permissions
+RUN mkdir -p /home/app/.ollama && chmod 777 /home/app/.ollama
+#RUN mkdir -p /home/app/.ollama/models && 
+USER app
+WORKDIR /home/app/.ollama
+#Copy dossier de models
+#COPY --chown=app models /.ollama
+#RUN chmod 777 /home/app/.ollama/models
+# Copy the entry point script
+COPY --chown=app entrypoint.sh /entrypoint.sh
+RUN chmod +x /start.sh
+# Set the entry point script as the default command
+CMD ["/start.sh"]
+#ENV OLLAMA_MODELS="/home/app/.ollama/models"
+# Expose the server port
+EXPOSE 7860
+
 
 # Set the working directory
 WORKDIR /app
