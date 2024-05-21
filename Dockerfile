@@ -41,7 +41,6 @@ COPY . .
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
 
-RUN /usr/local/bin/ollama serve
 RUN /usr/local/bin/ollama pull llama3
 
 # Copy the init script
