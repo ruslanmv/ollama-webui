@@ -8,6 +8,7 @@ RUN python -m venv venv
 ENV PATH="/app/venv/bin:$PATH"  
   
 RUN apt-get update && \
+apt-get install -y curl\
 apt-get clean && \  
 apt-get install -y --no-install-recommends build-essential libffi-dev cmake libcurl4-openssl-dev && \
 python3 -m pip install --upgrade pip && \
