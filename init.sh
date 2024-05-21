@@ -1,15 +1,5 @@
 #!/bin/bash
-# Install Ollama
-curl -fsSL https://ollama.com/install.sh | sh
-
-# Start Ollama in the background.
-ollama serve &
-# Record Process ID.
-pid=$!
-
-# Pause for Ollama to start.
-sleep 5
-
+which ollama
 echo "🔴 Retrieve LLAMA3 model..."
 ollama pull llama3
 echo "🟢 Done!"
