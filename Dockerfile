@@ -57,9 +57,7 @@ WantedBy=default.target" > /etc/systemd/system/ollama.service
 # Enable the service
 RUN systemctl enable ollama
 
-# Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+
 
 # Define the entrypoint to use tini and the custom script
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
