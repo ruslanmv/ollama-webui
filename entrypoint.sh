@@ -16,5 +16,9 @@ for m in "${MODELS[@]}"; do
     sleep 5
 done
 
+
+# Run the Python application
+exec python ./run.py
+
 # Keep the script running to prevent the container from exiting
 #wait
