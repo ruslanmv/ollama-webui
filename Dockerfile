@@ -28,6 +28,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install additional software
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
+
+RUN systemctl start ollama
+
 # Download the required model
 RUN ollama pull llama3
 
