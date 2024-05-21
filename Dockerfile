@@ -37,6 +37,10 @@ COPY . .
 
 # Set proper permissions for the translations directory
 RUN chmod -R 777 translations
+
+# Start Ollama service (modify based on your OS)
+RUN sudo systemctl start ollama  
+
 # Download the required model
 RUN ollama pull llama3
 # Define the command to run the application
