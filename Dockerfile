@@ -4,11 +4,11 @@ COPY requirements.txt requirements.txt
 RUN python -m venv venv  
 ENV PATH="/app/venv/bin:$PATH"  
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential libffi-dev cmake libcurl4-openssl-dev && \
-    pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt && \
-    curl -fsSL https://ollama.com/install.sh | sh
+apt-get clean && \  
+apt-get install -y --no-install-recommends build-essential libffi-dev cmake libcurl4-openssl-dev && \
+python3 -m pip install --upgrade pip && \
+pip3 install --no-cache-dir -r requirements.txt  && \
+curl -fsSL https://ollama.com/install.sh | sh
 
 COPY . .
 
