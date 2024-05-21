@@ -8,12 +8,12 @@ USER app
 WORKDIR /app/.ollama
 #Copy dossier de models
 #COPY --chown=app models /.ollama
-#RUN chmod 777 /home/app/.ollama/models
+RUN chmod 777 /app/.ollama/models
 # Copy the entry point script
-COPY --chown=app start.sh /start.sh
-RUN chmod +x /start.sh
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 # Set the entry point script as the default command
-CMD ["/start.sh"]
+CMD ["/app/start.sh"]
 #ENV OLLAMA_MODELS="/home/app/.ollama/models"
 # Expose the server port
 EXPOSE 7860
