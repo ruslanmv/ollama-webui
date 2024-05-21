@@ -17,4 +17,4 @@ for m in "${MODELS[@]}"; do
 done
 
 # Keep the script running to prevent the container from exiting
-wait
+#wait
