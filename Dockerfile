@@ -39,7 +39,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Set the entry point script as the default command
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]
 
 # Set the model as an environment variable (this can be overridden)
 ENV model="default_model"
