@@ -27,3 +27,4 @@ notebook
 jupyter
 g4f
 langchain-community
+ollama

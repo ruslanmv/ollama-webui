@@ -6,9 +6,17 @@ from server.backend import Backend_Api
 from server.babel import create_babel
 from json import load
 from flask import Flask
+import ollama
+
+# Optionally specify the model to pull during startup:
+model_name = "llama3"  # Replace with the desired model name
+
 
 if __name__ == '__main__':
-
+    import os
+    #os.system(" ollama serve")
+    # Start Ollama in server mode:
+    ollama.serve(pull=model_name)
     # Load configuration from config.json
     config = load(open('config.json', 'r'))
     site_config = config['site_config']
