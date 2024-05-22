@@ -4,7 +4,7 @@ from g4f import ChatCompletion
 from flask import request, Response, stream_with_context
 from requests import get
 from server.config import special_instructions
-from server.utils import check_model
+from server.utils import check_model, make_prompt , make_simple_prompt
 from langchain_community.llms import Ollama
 import requests
 
@@ -60,9 +60,11 @@ class Backend_Api:
         try:
             api_key = request.json['api_key']
             jailbreak = request.json['jailbreak']
+            print("jailbreak:",jailbreak)
             model = request.json['model']
             check_model(model)
             messages = build_messages(jailbreak)
+            print("messages:",messages)
             local_mode_1=True
             local_model_2 =False
             print(model)
@@ -75,9 +77,16 @@ class Backend_Api:
 
             if local_mode_1:
                 content=messages[0]['content']
+                input = request.json['meta']['content']['parts'][0]['content']
+                #prompt=make_simple_prompt(input,messages)
+                prompt=make_prompt(input,messages,model)
                 llm = Ollama(model=model)
+                print("messages",messages)
+                print("len(messages)",len(messages))
                 print("content:",content)
-                response = llm.invoke(content)
+                print("input",input)
+                print("prompt",prompt)
+                response = llm.invoke(prompt)
                 return response                        
             elif local_model_2:
                 # Use the local model to generate the response
