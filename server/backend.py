@@ -76,6 +76,7 @@ class Backend_Api:
             if local_mode_1:
                 content=messages[0]['content']
                 llm = Ollama(model=model)
+                print("content:",content)
                 response = llm.invoke(content)
                 return response                        
             elif local_model_2:
