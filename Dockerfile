@@ -33,6 +33,7 @@ ENV PATH="/app/venv/bin:/root/.ollama/bin:$PATH"
 
 # Expose the server port
 EXPOSE 7860
+EXPOSE 11434
 
 # Copy the entry point script
 COPY entrypoint.sh /entrypoint.sh
