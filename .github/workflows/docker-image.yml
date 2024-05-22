@@ -18,11 +18,8 @@ jobs:
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: Generate timestamp
-      run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
-
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ruslanmv/ollama-webui:${TIMESTAMP}
+      run: docker build . --file Dockerfile --tag ruslanmv/ollama-webui:latest
 
     - name: Push the Docker image
-      run: docker push ruslanmv/ollama-webui:${TIMESTAMP}
+      run: docker push ruslanmv/ollama-webui:latest
