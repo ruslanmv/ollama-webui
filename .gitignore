@@ -2,3 +2,4 @@ develop/*
 translations/*
 /server/__pycache__/*
 *.pyc
+server/__pycache__/backend.cpython-310.pyc
