@@ -4,6 +4,7 @@ from g4f import ChatCompletion
 from flask import request, Response, stream_with_context
 from requests import get
 from server.config import special_instructions
+from server.utils import check_model
 from langchain_community.llms import Ollama
 import requests
 
@@ -60,7 +61,7 @@ class Backend_Api:
             api_key = request.json['api_key']
             jailbreak = request.json['jailbreak']
             model = request.json['model']
-            
+            check_model(model)
             messages = build_messages(jailbreak)
             local_mode_1=True
             local_model_2 =False
