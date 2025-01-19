@@ -7,137 +7,97 @@ sdk: docker
 pinned: false
 app_port: 1338
 ---
+# Ollama WebUI
 
-# Ollama WebUI 
+The **Ollama WebUI** provides a simple interface for running a local LLM (Large Language Model). This is a great solution for users who need an LLM without internet access.
 
-The purpose of this LLM repository is have an LLM locally. If you dont have
-internet and you need al llm this is a solution. 
-![](assets/2024-05-20-08-25-27.png)
+![Interface Screenshot](assets/2024-05-20-08-25-27.png)
 
-## Table of Contents  
-- [To-Do List](#to-do-list-%EF%B8%8F)  
-- [Getting Started](#getting-started-white_check_mark)  
-  - [Cloning the Repository](#cloning-the-repository-inbox_tray)  
-  - [Install Dependencies](#install-dependencies-wrench)  
-- [Running the Application](#running-the-application-rocket)  
-- [Docker](#docker-)  
-  - [Prerequisites](#prerequisites)  
-  - [Running the Docker](#running-the-docker)
-- [Incorporated Projects](#incorporated-projects-busts_in_silhouette)
-  - [WebUI](#webui) 
-  - [API FreeGPT](#api-g4f)
-- [Star History](#star-history)
-- [Legal Notice](#legal-notice) 
+## Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Cloning the Repository](#cloning-the-repository)
+  - [Installing Dependencies](#installing-dependencies)
+- [Running the Application](#running-the-application)
+- [Docker Setup](#docker-setup)
+  - [Prerequisites](#prerequisites)
+  - [Running with Docker](#running-with-docker)
+- [Credits](#credits)
+- [Legal Notice](#legal-notice)
 
-## Getting Started :white_check_mark:  
-To get started with this project, you'll need download [ollama](https://ollama.com/download) and then clone the repository and have [Python](https://www.python.org/downloads/) installed on your system.  
-  
-### Cloning the Repository :inbox_tray:
-Run the following command to clone the repository:  
+## Features
+- Fully local LLM operation
+- Easy setup and deployment using Docker or Python
+- Web-based user interface for interaction with the LLM
 
-```
+## Getting Started
+
+### Cloning the Repository
+To begin, clone the repository:
+```bash
 git clone https://github.com/ruslanmv/ollama-webui.git
 ```
 
-### Install Dependencies :wrench: 
+### Installing Dependencies
 Navigate to the project directory:
-```
+```bash
 cd ollama-webui
 ```
 
-Install the dependencies:
-```
+Install the required dependencies:
+```bash
 pip install -r requirements.txt
 ```
-## Running the Application :rocket:
-To run the application, run the following command:
-```
+
+Download [Ollama](https://ollama.com/download) and ensure [Python](https://www.python.org/downloads/) is installed on your system.
+
+## Running the Application
+To start the application, use the following command:
+```bash
 python run.py
 ```
 
-Access the application in your browser using the URL:
-```
-http://127.0.0.1:1338
-```
-or
-```
-http://localhost:1338
-```
+Access the WebUI in your browser at:
+- `http://127.0.0.1:1338`
+- `http://localhost:1338`
 
+## Docker Setup
 
-## Docker 🐳
 ### Prerequisites
-Before you start, make sure you have installed [Docker](https://www.docker.com/get-started) on your machine.
+Make sure [Docker](https://www.docker.com/get-started) is installed on your system.
 
-### Running the Docker
-Pull the Docker image from Docker Hub:
-```
+### Running with Docker
+Pull the Docker image:
+```bash
 docker pull ruslanmv/ollama-webui
 ```
 
 Run the application using Docker:
-```
+```bash
 docker run -p 1338:1338 ruslanmv/ollama-webui
 ```
 
-Access the application in your browser using the URL:
-```
-http://127.0.0.1:1338
-```
-or
-```
-http://localhost:1338
-```
+Access the WebUI in your browser at:
+- `http://127.0.0.1:1338`
+- `http://localhost:1338`
 
-When you're done using the application, stop the Docker containers using the following command:
-```
+To stop the Docker container, use:
+```bash
 docker stop <container-id>
 ```
 
-## Incorporated Projects :busts_in_silhouette:
-I highly recommend visiting and supporting both projects.
-
-
-<br>
-
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=ruslanmv/ollama-webui&type=Timeline)](https://star-history.com/#ruslanmv/ollama-webui&Timeline)
-
-<br>
+## Credits
+This project is based on the **FreeGPT-WebUI** and has been modified to implement the Ollama setup. We extend our gratitude to the original creators for their work.
 
 ## Legal Notice
-This repository is _not_ associated with or endorsed by providers of the APIs contained in this GitHub repository. This
-project is intended **for educational purposes only**. This is just a little personal project. Sites may contact me to
-improve their security or request the removal of their site from this repository.
+This repository is provided for **educational purposes only** and is not associated with or endorsed by any of the providers of the APIs or services referenced within. Use of this repository and its contents is at your own risk.
 
-Please note the following:
+### Key Points
+1. **Ownership**: Trademarks and APIs mentioned belong to their respective owners.
+2. **Disclaimer**: The author is not responsible for any misuse of this repository.
+3. **Educational Use**: This project is intended solely for learning purposes.
+4. **Compliance**: Users must adhere to the terms of service of any APIs or models used.
+5. **License**: Content in this repository is protected under the GNU GPL license.
 
-1. **Disclaimer**: The APIs, services, and trademarks mentioned in this repository belong to their respective owners.
-   This project is _not_ claiming any right over them nor is it affiliated with or endorsed by any of the providers
-   mentioned.
+By using this repository, you agree to these terms.
 
-2. **Responsibility**: The author of this repository is _not_ responsible for any consequences, damages, or losses
-   arising from the use or misuse of this repository or the content provided by the third-party APIs. Users are solely
-   responsible for their actions and any repercussions that may follow. We strongly recommend the users to follow the
-   TOS of the each Website.
-
-3. **Educational Purposes Only**: This repository and its content are provided strictly for educational purposes. By
-   using the information and code provided, users acknowledge that they are using the APIs and models at their own risk
-   and agree to comply with any applicable laws and regulations.
-
-4. **Copyright**: All content in this repository, including but not limited to code, images, and documentation, is the
-   intellectual property of the repository author, unless otherwise stated. Unauthorized copying, distribution, or use
-   of any content in this repository is strictly prohibited without the express written consent of the repository
-   author.
-
-5. **Indemnification**: Users agree to indemnify, defend, and hold harmless the author of this repository from and
-   against any and all claims, liabilities, damages, losses, or expenses, including legal fees and costs, arising out of
-   or in any way connected with their use or misuse of this repository, its content, or related third-party APIs.
-
-6. **Updates and Changes**: The author reserves the right to modify, update, or remove any content, information, or
-   features in this repository at any time without prior notice. Users are responsible for regularly reviewing the
-   content and any changes made to this repository.
-
-By using this repository or any code related to it, you agree to these terms. The author is not responsible for any
-copies, forks, or reuploads made by other users. This is the author's only account and repository. To prevent
-impersonation or irresponsible actions, you may comply with the GNU GPL license this Repository uses.
